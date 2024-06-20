@@ -12,6 +12,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+/** 
+ * @author CauaSouzaCorrea
+ * **/
 public class Principal {
 	
 	public static void main(String[] args) {
@@ -28,18 +31,22 @@ public class Principal {
         listaDeFunc.add(new Funcionario("Heloísa", LocalDate.of(2003, 5, 24), new BigDecimal("1606.85"), "Eletricista"));
         listaDeFunc.add(new Funcionario("Helena", LocalDate.of(1996, 9, 2), new BigDecimal("2799.93"), "Gerente"));
         
+        //Remove o João da lista.
         listaDeFunc.remove(1);
         
+        //Formata a data de nascimento.
         DateTimeFormatter formatador = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         
+        //Imprime todos os funcionarios.
         for(Funcionario f: listaDeFunc) {
-        	System.out.println("Nome |      Data Nascimento |          Salário |      Função");        	
-            System.out.println(f.getNome() + "     |     " +  f.getDtNascimento().format(formatador) + "     |     " +  String.format("%,.2f", f.getSalario()) + "     |     " +  f.getFuncao());
+        	System.out.println("Nome |      Data Nascimento |        Salário |       Função");        	
+            System.out.println(f.getNome() + "     |     " +  f.getDtNascimento().format(formatador) + "     |     " +  String.format("%,.2f", f.getSalario()) + "     |    " +  f.getFuncao());
             System.out.println();
         }
         
         System.out.println("----------"); 
         
+        //Atualiza o salarios dos funcionarios com um aumento de 10%.
         System.out.println("Lista atualizada dos salarios: ");
         for(Funcionario f: listaDeFunc) {
         	f.setSalario(f.getSalario().multiply(BigDecimal.valueOf(1.10)));
@@ -49,6 +56,7 @@ public class Principal {
 	}
         System.out.println("----------");
         
+        //Agrupa os funcionários por função em um MAP.  Imprimi os funcionários agrupados por função.
         Map<String, List <Funcionario>> funcionariosPorFunc = listaDeFunc.stream().collect(Collectors.groupingBy(Funcionario::getFuncao));
         for(String funcao: funcionariosPorFunc.keySet()) {
         	System.out.println("Função: " + funcao);
@@ -59,6 +67,7 @@ public class Principal {
         
         System.out.println("----------");
         
+        //Imprimi os funcionarios que fazem aniversario no mês 10 e 12.
         System.out.println("Aniversariantes do mês 10 e 12: ");
         for(Funcionario f: listaDeFunc) {
         	int mesNasc = f.getDtNascimento().getMonthValue();
@@ -69,8 +78,8 @@ public class Principal {
         
         System.out.println("----------");
         
-        System.out.println("Funcionario mais velho: ");
-        
+        //Imprimi o funcionario mais velho.
+        System.out.println("Funcionario mais velho: ");        
 
         Funcionario funcMaisVelho = null;
         
@@ -82,8 +91,7 @@ public class Principal {
         		maisVelho = anoNasc;
         		funcMaisVelho = f;
         	}        	
-        }
-        
+        }       
         
         
         int idadeMaisVelho = funcMaisVelho.getDtNascimento().getYear();
@@ -93,8 +101,11 @@ public class Principal {
         	System.out.println(" - " + funcMaisVelho.getNome() + " " + idade);
         }
         
+        
         System.out.println("----------");
-        System.out.println("Ordem alfabetico: ");
+        
+        //Imprimi os funcionarios em ordem alfabetica.
+        System.out.println("Ordem alfabetica: ");
         
         List<Funcionario> ordemAlfa = new ArrayList<>(listaDeFunc);
         ordemAlfa.sort(Comparator.comparing(Funcionario::getNome));
@@ -104,21 +115,24 @@ public class Principal {
         
         System.out.println("----------");
         
+        //Soma todos os salarios.
         BigDecimal soma = new BigDecimal(0.0);        
         for(Funcionario f: listaDeFunc) {
         	soma = soma.add(f.getSalario());
         }
-        System.out.println(soma);
+        System.out.println("A soma total dos salarios é: ");
+        System.out.println(" - " +soma);
         
         System.out.println("----------");
         
+        //Quantos salarios minimos cada funcionario recebe.
         BigDecimal salarioMin = new BigDecimal(1212.000);
         BigDecimal resultado;
         
         for(Funcionario f:listaDeFunc) {
         	BigDecimal salariosMinimos = f.getSalario();
         	resultado = salariosMinimos.divide(salarioMin, 1, RoundingMode.UP);
-        	System.out.println("O total de salarios minimos que o funcionario " + f.getNome() + " recebe é: " + resultado);
+        	System.out.println("O total de salarios minimos que o funcionario(a) " + f.getNome() + " recebe é: " + resultado);
         }
   }
 }

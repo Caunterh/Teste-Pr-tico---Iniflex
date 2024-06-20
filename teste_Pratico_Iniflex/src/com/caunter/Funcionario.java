@@ -3,6 +3,11 @@ package com.caunter;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 
+
+/** 
+ * @author CauaSouzaCorrea
+ * **/
+
 public class Funcionario extends Pessoa{
 
 	private BigDecimal salario;

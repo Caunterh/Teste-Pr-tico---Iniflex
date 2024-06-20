@@ -2,6 +2,11 @@ package com.caunter;
 
 import java.time.LocalDate;
 
+
+/** 
+ * @author CauaSouzaCorrea
+ * **/
+
 public class Pessoa {
 
 	private String nome; 
